@@ -1,11 +1,11 @@
-package challange.taskOne;
+package challenge.task.one;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Class that contains the dictionary to encrypt or decrypt characters.
- * 
+ *
  * @author kassi
  *
  */
@@ -13,15 +13,15 @@ public class Dictionary {
 
 	private final Map<Character, Character> encryptDictionary;
 	private final Map<Character, Character> decryptDictionary;
-	
+
 	public Dictionary() {
 		this.encryptDictionary = new HashMap<Character, Character>();
 		this.decryptDictionary = new HashMap<Character, Character>();
-		
+
 		this.createFromPlainToEncrypted();
 		this.createFromEncryptedToPlain();
 	}
-	
+
 	private void createFromPlainToEncrypted() {
 		encryptDictionary.put('D', 'A');
 		encryptDictionary.put('E', 'B');
@@ -50,9 +50,9 @@ public class Dictionary {
 		encryptDictionary.put('B', 'Y');
 		encryptDictionary.put('C', 'Z');
 	}
-	
+
 	private void createFromEncryptedToPlain() {
-		for (Map.Entry<Character, Character> entry: this.encryptDictionary.entrySet()) {
+		for (final Map.Entry<Character, Character> entry : this.encryptDictionary.entrySet()) {
 			this.decryptDictionary.put(entry.getValue(), entry.getKey());
 		}
 	}
@@ -63,6 +63,6 @@ public class Dictionary {
 
 	public Map<Character, Character> getDecryptDictionary() {
 		return decryptDictionary;
-	} 
-	
+	}
+
 }
