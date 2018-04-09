@@ -30,24 +30,18 @@ package challange.taskOne;
  */
 public class TaskOne {
 	public static void main(String[] args) {
+		// check the number of parameters
+		if(args == null || args.length != 2) {
+			throw new IllegalArgumentException("Invalid number of arguments to translate a message, inform an action and a message.");
+		}
+
 		final String action = args[0];
 		final String message = args[1];
 		
-		// check the number of parameters
-		if(args.length != 2) {
-			throw new IllegalArgumentException("Invalid number of arguments to translate a message, inform an action and a message.");
-		}
-		
-		// check if it is a valid message
-		final MessageChecker messageChecker = new MessageChecker();
-		messageChecker.checkMessage(message);
-		
-		// check if it is a valid action
-		final ActionChecker actionChecker = new ActionChecker();
-		actionChecker.checkAction(action);
-		
 		final Dictionary dictionary = new Dictionary();
-		final MessageTranslator messageTranslator = new MessageTranslator(dictionary);
+		final MessageCheckerImpl messageChecker = new MessageCheckerImpl();
+		final ActionCheckerImpl actionChecker = new ActionCheckerImpl();
+		final MessageTranslator messageTranslator = new MessageTranslator(dictionary, messageChecker, actionChecker);
 		
 		// translates the message
 		final String translatedMessage = messageTranslator.translateMessage(action, message);

@@ -2,6 +2,9 @@ package challange.taskOne;
 
 import java.util.Map;
 
+import challange.taskOne.interfaces.ActionChecker;
+import challange.taskOne.interfaces.MessageChecker;
+
 /**
  * Class that translates a message into another one, encrypting or decrypting characters according to the action chosen.
  * 
@@ -11,9 +14,14 @@ import java.util.Map;
 public class MessageTranslator {
 
 	private final Dictionary dictionary;
+	private final MessageChecker messageChecker;
+	private final ActionChecker actionChecker;
 	
-	public MessageTranslator(final Dictionary dictionary) {
+	public MessageTranslator(final Dictionary dictionary, final MessageChecker messageChecker, final ActionChecker actionChecker) {
 		this.dictionary = dictionary;
+		this.messageChecker = messageChecker;
+		this.actionChecker = actionChecker;
+
 	}
 	
 	/**
@@ -26,6 +34,12 @@ public class MessageTranslator {
 	 */
 	public String translateMessage(final String action,final String message) {
 		String translatedMessage = "";
+		
+		// check if it is a valid message
+		messageChecker.checkMessage(message);
+		
+		// check if it is a valid action
+		actionChecker.checkAction(action);
 		
 		switch(TranslateMode.fromString(action)) {
 			case DECRYPT: 
