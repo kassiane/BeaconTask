@@ -1,5 +1,12 @@
 package challenge.task.three;
 
+/**
+ * Class that represents each number of the matrix containing its north, south,
+ * west and east neighbors.
+ *
+ * @author kassi
+ *
+ */
 public class Node {
 
 	private final int value;

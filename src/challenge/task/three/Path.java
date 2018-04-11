@@ -4,10 +4,17 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Path implements Cloneable {
+/**
+ * Class that stores the path that is being evaluated.
+ *
+ * @author kassi
+ *
+ */
+public class Path {
 
+	private static final String LINE_SEPARATOR = "line.separator";
 	private final ArrayList<Node> nodeList;
-	private Set<Node> nodeSet;
+	private final Set<Node> nodeSet;
 	private int totalSum;
 
 	public Path() {
@@ -22,20 +29,31 @@ public class Path implements Cloneable {
 		this.totalSum = totalSum;
 	}
 
+	/**
+	 * Adds a node to the path if it was not visited and returns the sum of the path
+	 * values.
+	 *
+	 * @param nodeToAdd
+	 *            that will be added to the path.
+	 * @return the sum of the path values.
+	 */
 	public int addNode(final Node nodeToAdd) {
 		if (nodeSet.contains(nodeToAdd)) {
-			// throw new IllegalArgumentException("Can't add a Node that already is part of
-			// the path.");
 			return -1;
 		}
-		this.nodeList.add(nodeToAdd);
-		nodeSet = new HashSet<>(nodeList);
 
+		this.nodeList.add(nodeToAdd);
+		nodeSet.add(nodeToAdd);
 		this.totalSum += nodeToAdd.getValue();
 
 		return this.totalSum;
 	}
 
+	/**
+	 * Method that returns the last node that was inserted to the path.
+	 *
+	 * @return the last node inserted to the path.
+	 */
 	public Node getLastNode() {
 		return nodeList.get(nodeList.size() - 1);
 	}
@@ -51,11 +69,19 @@ public class Path implements Cloneable {
 	@Override
 	public String toString() {
 		final StringBuilder toString = new StringBuilder();
-		toString.append("TotalSum = " + totalSum);
+		toString.append("TotalSum = " + this.totalSum);
+		toString.append(System.getProperty(LINE_SEPARATOR));
 		toString.append("Path = ");
-		for (int node = 0; node < nodeList.size(); node++) {
-			toString.append(nodeList.get(node).getValue() + " => ");
+		for (int node = 0; node < this.nodeList.size(); node++) {
+			final Node current = this.nodeList.get(node);
+			toString.append(current.getValue());
+			toString.append("(").append(current.getRow()).append(",").append(current.getColumn()).append(")");
+
+			if (node != this.nodeList.size() - 1) {
+				toString.append(" => ");
+			}
 		}
+		toString.append(System.getProperty(LINE_SEPARATOR));
 
 		return toString.toString();
 	}
