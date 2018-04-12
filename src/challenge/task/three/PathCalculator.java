@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import challenge.task.three.interfaces.MatrixNodeBuilder;
+
+/**
+ * Class that calculates all paths with sum of weights.
+ *
+ * @author kassi
+ *
+ */
 public class PathCalculator {
 
     private final MatrixNodeBuilder matrixNodeBuilder;
@@ -16,17 +24,30 @@ public class PathCalculator {
         this.matrixNodeBuilder = matrixNodeBuilder;
     }
 
-    public List<Path> calculatePaths(final int requiredSumPath, final int rowSize, final int columnSize,
+    /**
+     * Method that calculates all paths with sum of weights informed in the
+     * parameters.
+     *
+     * @param requiredSumPath
+     *            the sum of the path.
+     * @param matrixDimension
+     *            the dimension of row and column of the matrix
+     * @param randomNumbers
+     *            the weights of the nodes to be calculated
+     * @return a list containing all paths with sum of weights informed in the
+     *         parameters
+     */
+    public List<Path> calculatePaths(final int requiredSumPath, final int matrixDimension,
             final int[][] randomNumbers) {
 
         this.requiredSumPath = requiredSumPath;
         this.pathsWithRequiredSum = new ArrayList<>();
         this.possiblePaths = new Stack<>();
 
-        final Node[][] nodes = this.matrixNodeBuilder.createNodes(randomNumbers, rowSize, columnSize);
+        final Node[][] nodes = this.matrixNodeBuilder.createNodes(randomNumbers, matrixDimension, matrixDimension);
 
-        for (int row = 0; row < rowSize; row++) {
-            for (int column = 0; column < columnSize; column++) {
+        for (int row = 0; row < matrixDimension; row++) {
+            for (int column = 0; column < matrixDimension; column++) {
 
                 final Path newPath = new Path();
                 final Node node = nodes[row][column];
